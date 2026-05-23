@@ -1,9 +1,10 @@
-using ApiContactos.Data;
+using Contactos.Data;
 using Contactos.SI.Middleware;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Servicios
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -13,10 +14,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
-
-app.UseSwagger();
-app.UseSwaggerUI();
+// CORS (va aquí)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("Angular",
@@ -25,10 +23,15 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod());
 });
 
+var app = builder.Build();
+
+// Middleware
+app.UseSwagger();
+app.UseSwaggerUI();
+
 app.UseCors("Angular");
 
-
-// middleware API Key aquí
+// API Key
 app.UseMiddleware<ApiKeyMiddleware>();
 
 app.UseAuthorization();

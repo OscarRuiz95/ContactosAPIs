@@ -1,7 +1,7 @@
 ﻿using Contactos.SI.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ApiContactos.Data
+namespace Contactos.Data
 {
     public class AppDbContext : DbContext
     {
