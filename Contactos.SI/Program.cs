@@ -17,6 +17,16 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Angular",
+        x => x.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod());
+});
+
+app.UseCors("Angular");
+
 
 // middleware API Key aquí
 app.UseMiddleware<ApiKeyMiddleware>();
